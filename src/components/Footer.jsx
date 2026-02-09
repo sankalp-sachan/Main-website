@@ -1,6 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Footer = ({ onLegalClick }) => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+
+    try {
+      const response = await axios.post('https://main-website-backend-3zny.onrender.com/api/newsletter/subscribe', { email });
+      setStatus({ type: 'success', message: response.data.message });
+      setEmail('');
+    } catch (error) {
+      setStatus({ type: 'error', message: error.response?.data?.message || 'Something went wrong' });
+    }
+
+    setTimeout(() => setStatus({ type: '', message: '' }), 5000);
+  };
+
   return (
     <footer className="footer section-padding">
       <div className="container">
@@ -33,10 +52,25 @@ const Footer = ({ onLegalClick }) => {
           <div className="footer-newsletter">
             <h4>Stay Updated</h4>
             <p>Get the latest news and updates directly in your inbox.</p>
-            <div className="newsletter-box">
-              <input type="email" placeholder="Email address" />
-              <button className="btn btn-primary">Join</button>
-            </div>
+            <form className="newsletter-box" onSubmit={handleSubscribe}>
+              <input
+                type="email"
+                placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit" className="btn btn-primary">Join</button>
+            </form>
+            {status.message && (
+              <p className={`status-msg ${status.type}`} style={{
+                marginTop: '10px',
+                fontSize: '0.8rem',
+                color: status.type === 'success' ? '#10b981' : '#ef4444'
+              }}>
+                {status.message}
+              </p>
+            )}
           </div>
         </div>
 
