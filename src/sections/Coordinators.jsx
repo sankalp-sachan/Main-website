@@ -21,43 +21,47 @@ const Coordinators = () => {
                 name: "Mr. Ravikant Mishra",
                 role: "Faculty Advisor",
                 dept: "Computer Application",
-                image: "rkm.png" 
+                image: "rkm.png",
+                email: null,
+                linkedin: null
             },
             {
                 name: "Mr. Anand Kumar Mishra",
                 role: "Event Coordinator",
                 dept: "Computer Application",
-                image: "akm.png"
+                image: "akm.png",
+                email: null,
+                linkedin: null
             }
         ],
         team: [
             {
                 name: "Sankalp Sachan",
-                role: "Technical Head & Organizing Lead ",
+                role: "Technical Head & Organizing Lead",
                 year: "1st Year",
-                image: "Sankalp.jpeg"
+                image: "Sankalp.jpeg",
+                email: "sankalpsachan2007@gmail.com",
+                linkedin: "https://www.linkedin.com/in/sachansankalp2007"
             },
             {
                 name: "Aditya Singh",
                 role: "Designing Head & Organizing Lead",
                 year: "1st Year",
-                image: "aditya.jpeg"
-            },
-            {
-                name: "Tech Lead",
-                role: "Technical Head",
-                year: "3rd Year",
-                image: null
-            },
+                image: "aditya.jpeg",
+                email: "singhadi0655@gmail.com",
+                linkedin: "https://www.linkedin.com/in/aditya-singh2006"
+            }
         ],
         volunteers: [
             {
                 name: "Volunteer 1",
                 role: "Event Support",
                 year: "2nd Year",
-                image: null
+                image: null,
+                email: null,
+                linkedin: null
             },
-            
+
         ]
     };
 
@@ -105,8 +109,16 @@ const Coordinators = () => {
                                 <div className="member-detail">{member.dept || member.year}</div>
 
                                 <div className="member-links">
-                                    <button className="icon-btn"><Linkedin size={18} /></button>
-                                    <button className="icon-btn"><Mail size={18} /></button>
+                                    {member.linkedin && (
+                                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="icon-btn" title="LinkedIn">
+                                            <Linkedin size={18} />
+                                        </a>
+                                    )}
+                                    {member.email && (
+                                        <a href={`mailto:${member.email}`} className="icon-btn" title="Email">
+                                            <Mail size={18} />
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </div>
