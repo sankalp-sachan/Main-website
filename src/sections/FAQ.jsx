@@ -13,7 +13,6 @@ const FAQ = () => {
     { q: "Will a certificate be provided?", a: "Yes, e-certificates/certificates of participation will be provided to all eligible participants. Certificates of merit will be awarded to winners." },
     { q: "Are there any prizes for the winners?", a: "Yes, attractive prizes and/or merit certificates will be awarded to top performers, as announced by the organizing committee." },
     { q: "Whom should I contact for queries or technical issues?", a: "For any queries related to registration, rules, or technical support, participants may contact the event coordinators through the official email ID or contact number mentioned on the website." },
-    { q: "", a: "" },
   ];
 
   const toggleFAQ = (index) => {
