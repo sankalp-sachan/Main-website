@@ -28,7 +28,7 @@ const Signup = () => {
 
         try {
             // Replace with your actual backend URL
-            const response = await axios.post('http://localhost:5000/api/users', formData);
+            const response = await axios.post('https://main-website-backend-3zny.onrender.com/api/users', formData);
 
             if (response.data && response.data.token) {
                 login(response.data, response.data.token);

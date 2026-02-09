@@ -74,7 +74,7 @@ const RegistrationModal = ({ isOpen, onClose, category }) => {
         payload.college = "TechFest Host College";
         payload.college = "TechFest Host College";
 
-        await axios.post('http://localhost:5000/api/register', payload, config);
+        await axios.post('https://main-website-backend-3zny.onrender.com/api/register', payload, config);
 
         setSubmitted(true);
         setTimeout(() => {

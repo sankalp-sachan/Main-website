@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
                     const parsedUser = JSON.parse(storedUser);
                     setUser(parsedUser);
 
-                    const response = await fetch('http://localhost:5000/api/users/me', {
+                    const response = await fetch('https://main-website-backend-3zny.onrender.com/api/users/me', {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
