@@ -1,7 +1,41 @@
-import React from 'react';
-import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Linkedin, Twitter, Github, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import axios from 'axios';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [status, setStatus] = useState({ type: '', text: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (status.text) setStatus({ type: '', text: '' });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus({ type: '', text: '' });
+
+    try {
+      const response = await axios.post('https://main-website-backend-3zny.onrender.com/api/contact', formData);
+      setStatus({ type: 'success', text: response.data.message || 'Message sent successfully!' });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Contact Error:', error);
+      setStatus({
+        type: 'error',
+        text: error.response?.data?.message || 'Failed to send message. Please try again.'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="contact" className="section-padding">
       <div className="container">
@@ -28,17 +62,47 @@ const Contact = () => {
             </div>
           </div>
 
-          <form className="contact-form glass" onSubmit={(e) => e.preventDefault()}>
+          <form className="contact-form glass" onSubmit={handleSubmit}>
             <div className="form-group">
-              <input type="text" placeholder="Your Name" />
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="form-group">
-              <input type="email" placeholder="Your Email" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="form-group">
-              <textarea placeholder="Your Message" rows="5"></textarea>
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                rows="5"
+                value={formData.message}
+                onChange={handleChange}
+                required
+              ></textarea>
             </div>
-            <button className="btn btn-primary">Send Message</button>
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? 'Sending...' : 'Send Message'}
+            </button>
+
+            {status.text && (
+              <div className={`status-feedback ${status.type}`}>
+                {status.type === 'success' ? <CheckCircle size={18} /> : <AlertCircle size={18} />}
+                <span>{status.text}</span>
+              </div>
+            )}
           </form>
         </div>
       </div>
@@ -122,6 +186,33 @@ const Contact = () => {
 
         .contact-form textarea {
           resize: none;
+        }
+
+        .status-feedback {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 12px;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          margin-top: 10px;
+        }
+
+        .status-feedback.success {
+          background: rgba(16, 185, 129, 0.1);
+          color: #10b981;
+          border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-feedback.error {
+          background: rgba(239, 68, 68, 0.1);
+          color: #ef4444;
+          border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .btn:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
         }
 
         @media (max-width: 968px) {
