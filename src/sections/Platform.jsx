@@ -9,7 +9,7 @@ const Platform = () => {
             tagline: 'The Ultimate DSA Judge',
             icon: <Code2 size={40} />,
             desc: 'Our proprietary judge for Data Structures and Algorithms. Compete in real-time, solve complex problems, and see where you stand on the global leaderboard.',
-            link: '/login',
+            link: 'https://codeminati.vercel.app/',
             features: ['Real-time Execution', 'Sandboxed Testing', 'Global Ranking'],
             color: 'var(--primary-color)'
         },
@@ -19,7 +19,7 @@ const Platform = () => {
             tagline: 'Aptitude & MCQs',
             icon: <Brain size={40} />,
             desc: 'A robust platform for rapid-fire technical quizzes. Test your core computer science knowledge and aptitude with timed challenges and instant results.',
-            link: '/login',
+            link: 'https://techfest-quiz.vercel.app/',
             features: ['Timed Rounds', 'Instant Results', 'Multi-category'],
             color: 'var(--secondary-color)'
         }
